@@ -12,7 +12,6 @@ const app = express();
 app.use(express.static('public'));
 
 app.use((req, res) => {
-    // res.setHeader('Access-Control-Allow-Origin', '*')
     res.sendFile(Path.resolve('./index.html'));
 });
 
