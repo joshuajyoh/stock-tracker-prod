@@ -1,5 +1,6 @@
 {
   "name": "stock-tracker-prod",
+  "version": "1.0.0",
   "type": "module",
   "private": true,
   "main": "app.js",
