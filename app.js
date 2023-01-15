@@ -11,9 +11,9 @@ const app = express();
 
 app.use(express.static('public'));
 
-app.use((req, res) => {
+app.get('/stock-tracker', (_, res) => {
     res.sendFile(Path.resolve('./index.html'));
-});
+})
 
 app.listen(port, host, () => {
     console.log(`Server running at http://${host}:${port}/`);
