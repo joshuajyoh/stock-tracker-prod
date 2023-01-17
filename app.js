@@ -11,6 +11,10 @@ const app = express();
 
 app.use(express.static('public'));
 
+app.get('/', (_, res) => {
+    res.sendFile(Path.resolve('./pages/home.html'));
+})
+
 app.get('/stock-tracker', (_, res) => {
     res.sendFile(Path.resolve('./pages/stock-tracker.html'));
 })
