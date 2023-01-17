@@ -12,7 +12,7 @@ const app = express();
 app.use(express.static('public'));
 
 app.get('/stock-tracker', (_, res) => {
-    res.sendFile(Path.resolve('./index.html'));
+    res.sendFile(Path.resolve('./pages/stock-tracker.html'));
 })
 
 app.listen(port, host, () => {
