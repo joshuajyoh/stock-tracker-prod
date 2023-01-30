@@ -2,7 +2,7 @@ import * as HTTPS from 'https';
 
 export default class StockDataRoutes {
     static setup(app) {
-        app.get('/stock-data', this.#get);
+        app.get('/api/stock-data', this.#get);
     }
 
     static async #get(req, res) {
