@@ -1,6 +1,7 @@
 import * as Env from 'dotenv';
 import express from 'express';
 import * as Path from 'path';
+import StockDataRoutes from './src/routes/stock-data';
 
 Env.config();
 
@@ -18,6 +19,8 @@ app.get('/', (_, res) => {
 app.get('/stock-tracker', (_, res) => {
     res.sendFile(Path.resolve('./pages/stock-tracker.html'));
 })
+
+StockDataRoutes.setup(app);
 
 app.listen(port, host, () => {
     console.log(`Server running at http://${host}:${port}/`);
