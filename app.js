@@ -19,7 +19,7 @@ app.get('/', (_, res) => {
 })
 
 app.get('/stock-tracker', (_, res) => {
-    res.sendFile(Path.resolve('./pages/stock-tracker.html'));
+    res.redirect('https://joshuajyoh.github.io/stock-tracker/');
 })
 
 StockDataRoutes.setup(app);
