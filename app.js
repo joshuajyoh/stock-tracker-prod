@@ -1,7 +1,7 @@
 import * as Env from 'dotenv';
 import express from 'express';
 import * as Path from 'path';
-import StockDataRoutes from './src/routes/stock-data';
+import StockDataRoutes from './src/routes/stock-data.js';
 
 Env.config();
 
