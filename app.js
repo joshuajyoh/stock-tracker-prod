@@ -1,3 +1,4 @@
+import Database from './src/database.js';
 import * as Env from 'dotenv';
 import express from 'express';
 import * as FileSystem from 'fs';
@@ -23,6 +24,9 @@ app.get('/stock-tracker', (_, res) => {
 })
 
 StockDataRoutes.setup(app);
+
+// Set up database
+Database.setup();
 
 // HTTP Setup
 
