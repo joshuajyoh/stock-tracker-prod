@@ -1,8 +1,13 @@
+import express from "express";
 import * as HTTPS from 'https';
 
-export default class StockDataRoutes {
-    static setup(app) {
-        app.get('/api/stock-data', this.#get);
+export default class FinanceRoutes {
+    static setup() {
+        const financeRouter = express.Router();
+
+        financeRouter.get('/', this.#get);
+
+        return financeRouter;
     }
 
     static async #get(req, res) {
@@ -21,8 +26,8 @@ export default class StockDataRoutes {
             history: null
         };
 
-        const detailsPromise = StockDataRoutes.#getDetails(symbol, data);
-        const historyPromise = StockDataRoutes.#getHistory(symbol, data);
+        const detailsPromise = FinanceRoutes.#getDetails(symbol, data);
+        const historyPromise = FinanceRoutes.#getHistory(symbol, data);
 
         try {
             await Promise.all([detailsPromise, historyPromise]);

@@ -5,7 +5,7 @@ import * as FileSystem from 'fs';
 import * as HTTP from 'http';
 import * as HTTPS from 'https';
 import * as Path from 'path';
-import StockDataRoutes from './src/routes/stock-data.js';
+import StockTrackerRoutes from './src/routes/stock-tracker/stock-tracker.js';
 
 Env.config();
 
@@ -23,7 +23,8 @@ app.get('/stock-tracker', (_, res) => {
     res.redirect('https://joshuajyoh.github.io/stock-tracker/');
 })
 
-StockDataRoutes.setup(app);
+// Set up API routes
+app.use('/api/stock-tracker', StockTrackerRoutes.setup());
 
 // Set up database
 Database.setup();
