@@ -56,8 +56,8 @@ export default class SessionRoutes {
         // Create JWT session
 
         try {
-            const token = JWT.sign({ data: user.username }, process.env.SECRET, { expiresIn: '30s' });
-            res.cookie('session', token, { maxAge: '30000' });
+            const token = JWT.sign({ data: user.username }, process.env.SECRET, { expiresIn: '7d' });
+            res.cookie('session', token, { maxAge: 1000 * 60 * 60 * 24 * 7 });
         } catch {
             res.sendStatus(500);
             return;
