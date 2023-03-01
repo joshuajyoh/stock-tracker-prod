@@ -16,7 +16,6 @@ const ENV = process.env.ENV;
 const app = express();
 app.use(cookieParser());
 app.use(express.static('public'));
-app.use(Token.verify);
 
 app.get('/', (_, res) => {
     res.sendFile(Path.resolve('./pages/home.html'));
@@ -27,7 +26,7 @@ app.get('/stock-tracker', (_, res) => {
 })
 
 // Set up Stock Tracker routes
-app.use('/api/stock-tracker', StockTrackerRoutes.setup());
+app.use('/api/stock-tracker', Token.verify, StockTrackerRoutes.setup());
 
 // Set up database
 Database.setup();
