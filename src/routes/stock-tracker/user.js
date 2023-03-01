@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
-import Database from '../../database.js';
 import express from 'express';
+import DBQuery from '../../utils/db-query.js';
 
 export default class UserRoutes {
     static setup() {
@@ -23,17 +23,14 @@ export default class UserRoutes {
 
         // Check if username already exists
 
-        queryResult = await new Promise((resolve, _) => {
-            Database.Connection.query(`SELECT COUNT(*) AS count FROM User WHERE username = ?`, [username], (err, results) => {
-                if (err) {
-                    throw new Error('Query failed');
-                }
-                
-                resolve(results[0].count);
-            });
-        }); 
-
-        if (queryResult > 0) {
+        try {
+            queryResult = await DBQuery.query('SELECT COUNT(*) AS count FROM User WHERE username = ?', [username]);
+        } catch {
+            res.sendStatus(500);
+            return;
+        }
+        
+        if (queryResult[0].count > 0) {
             res.sendStatus(400);
             return;
         }
@@ -44,7 +41,12 @@ export default class UserRoutes {
 
         // Insert into database
 
-        Database.Connection.query(`INSERT INTO User VALUES (?, ?, '')`, [username, hash]);
+        try {
+            await DBQuery.query(`INSERT INTO User VALUES (?, ?, '')`, [username, hash]);
+        } catch {
+            res.sendStatus(500);
+            return;
+        }
 
         res.sendStatus(200);
     }
@@ -65,15 +67,7 @@ export default class UserRoutes {
         let queryResult;
 
         try {
-            queryResult = await new Promise((resolve, reject) => {
-                Database.Connection.query(`SELECT saved_data FROM User WHERE username = ?`, [username], (err, result) => {
-                    if (err) {
-                        reject(new Error('Query failed'));
-                    }
-                    
-                    resolve(result);
-                });
-            }); 
+            queryResult = await DBQuery.query(`SELECT saved_data FROM User WHERE username = ?`, [username]);
         } catch {
             res.sendStatus(500);
             return;
@@ -101,15 +95,7 @@ export default class UserRoutes {
         // Update saved data
 
         try {
-            await new Promise((resolve, reject) => {
-                Database.Connection.query(`UPDATE User SET saved_data = ? WHERE username = ?`, [savedData, username], (err, _) => {
-                    if (err) {
-                        reject(new Error('Query failed'));
-                    }
-                    
-                    resolve();
-                });
-            }); 
+            await DBQuery.query(`UPDATE User SET saved_data = ? WHERE username = ?`, [savedData, username]);
         } catch {
             res.sendStatus(500);
             return;
@@ -132,15 +118,7 @@ export default class UserRoutes {
         // Delete user
 
         try {
-            await new Promise((resolve, reject) => {
-                Database.Connection.query(`DELETE FROM User WHERE username = ?`, [username], (err, _) => {
-                    if (err) {
-                        reject(new Error('Query failed'));
-                    }
-                    
-                    resolve();
-                });
-            }); 
+            await DBQuery.query(`DELETE FROM User WHERE username = ?`, [username]);
         } catch {
             res.sendStatus(500);
             return;

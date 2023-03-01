@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
-import Database from '../../database.js';
 import JWT from 'jsonwebtoken';
 import express from 'express';
+import DBQuery from '../../utils/db-query.js';
 
 export default class SessionRoutes {
     static setup() {
@@ -23,32 +23,28 @@ export default class SessionRoutes {
         // Check if username exists
         // TODO: Prevent timing attacks
 
-        queryResult = await new Promise((resolve, _) => {
-            Database.Connection.query(`SELECT COUNT(*) AS count FROM User WHERE username = ?`, [username], (err, results) => {
-                if (err) {
-                    throw new Error('Query failed');
-                }
-                
-                resolve(results[0].count);
-            });
-        }); 
+        try {
+            queryResult = await DBQuery.query(`SELECT COUNT(*) AS count FROM User WHERE username = ?`, [username]);
+        } catch {
+            res.sendStatus(500);
+            return;
+        }
 
-        if (queryResult === 0) {
+        if (queryResult[0].count === 0) {
             res.sendStatus(400);
             return;
         }
 
         // Validate password
 
-        const user = await new Promise((resolve, _) => {
-            Database.Connection.query(`SELECT * FROM User WHERE username = ?`, [username], (err, results) => {
-                if (err) {
-                    throw new Error('Query failed');
-                }
-                
-                resolve(results[0]);
-            });
-        });
+        try {
+            queryResult = await DBQuery.query(`SELECT * FROM User WHERE username = ?`, [username]);
+        } catch {
+            res.sendStatus(500);
+            return;
+        }
+
+        const user = queryResult[0];
 
         const passwordIsCorrect = await bcrypt.compare(password, user.password);
 
