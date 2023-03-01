@@ -9,6 +9,7 @@ export default class SessionRoutes {
         const sessionRouter = express.Router();
 
         sessionRouter.post('/', bodyParser.json(), this.#login);
+        sessionRouter.delete('/:sessionUser', this.#logout);
 
         return sessionRouter;
     }
@@ -59,13 +60,26 @@ export default class SessionRoutes {
         // Create JWT session
 
         try {
-            const token = JWT.sign({ data: user.username }, process.env.SECRET, { expiresIn: '5s' });
-            res.cookie('session', token, { maxAge: '5000' });
+            const token = JWT.sign({ data: user.username }, process.env.SECRET, { expiresIn: '30s' });
+            res.cookie('session', token, { maxAge: '30000' });
         } catch {
             res.sendStatus(500);
             return;
         }
 
+        res.sendStatus(200);
+    }
+
+    static #logout(req, res) {
+        const sessionUser = res.get('Session-User');
+
+        // Check if logout user matches session
+        if (sessionUser !== req.params.sessionUser) {
+            res.sendStatus(401);
+            return;
+        }
+
+        res.clearCookie('session');
         res.sendStatus(200);
     }
 }
