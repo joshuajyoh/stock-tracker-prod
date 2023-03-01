@@ -90,9 +90,9 @@ export default class UserRoutes {
             return;
         }
 
-        const savedData = JSON.stringify(req.body.data);
-
         // Update saved data
+
+        const savedData = JSON.stringify(req.body);
 
         try {
             await DBQuery.query(`UPDATE User SET saved_data = ? WHERE username = ?`, [savedData, username]);
