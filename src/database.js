@@ -1,7 +1,11 @@
 import * as MySQL from 'mysql2';
 
 export default class Database {
-    static #connection = null;
+    static #connection;
+
+    static get Connection() {
+        return this.#connection;
+    }
 
     static setup() {
         this.#connection = MySQL.createConnection({
@@ -31,7 +35,7 @@ export default class Database {
             }
         });
 
-        this.#connection.query('CREATE TABLE IF NOT EXISTS User(username VARCHAR(30), password VARCHAR(500), saved_data TEXT)', (err) => {
+        this.#connection.query('CREATE TABLE IF NOT EXISTS User(username VARCHAR(30), password VARCHAR(100) NOT NULL, saved_data TEXT, PRIMARY KEY (username))', (err) => {
             if (err) {
                 console.error('');
             }
