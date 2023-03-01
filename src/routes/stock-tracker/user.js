@@ -42,7 +42,7 @@ export default class UserRoutes {
         // Insert into database
 
         try {
-            await DBQuery.query(`INSERT INTO User VALUES (?, ?, '')`, [username, hash]);
+            await DBQuery.query(`INSERT INTO User VALUES (?, ?, '[]')`, [username, hash]);
         } catch {
             res.sendStatus(500);
             return;
