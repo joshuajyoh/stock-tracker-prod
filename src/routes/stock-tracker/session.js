@@ -8,14 +8,13 @@ export default class SessionRoutes {
     static setup() {
         const sessionRouter = express.Router();
 
-        sessionRouter.get('/', this.#getSession);
+        sessionRouter.get('/username', this.#getSessionUsername);
         sessionRouter.post('/', bodyParser.json(), this.#login);
-        sessionRouter.delete('/:sessionUser', this.#logout);
 
         return sessionRouter;
     }
 
-    static #getSession(_, res) {
+    static #getSessionUsername(_, res) {
         const username = res.get('Session-User');
 
         if (username === '') {
@@ -74,25 +73,13 @@ export default class SessionRoutes {
 
         try {
             const token = JWT.sign({ data: user.username }, process.env.SECRET, { expiresIn: '7d' });
-            res.cookie('session', token, { maxAge: 1000 * 60 * 60 * 24 * 7 });
+
+            res.status(200);
+            res.json({
+                token: token
+            });
         } catch {
             res.sendStatus(500);
-            return;
         }
-
-        res.sendStatus(200);
-    }
-
-    static #logout(req, res) {
-        const sessionUser = res.get('Session-User');
-
-        // Check if logout user matches session
-        if (sessionUser !== req.params.sessionUser) {
-            res.sendStatus(401);
-            return;
-        }
-
-        res.clearCookie('session');
-        res.sendStatus(200);
     }
 }
