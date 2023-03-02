@@ -8,10 +8,27 @@ export default class SessionRoutes {
     static setup() {
         const sessionRouter = express.Router();
 
+        sessionRouter.get('/', this.#getSession);
         sessionRouter.post('/', bodyParser.json(), this.#login);
         sessionRouter.delete('/:sessionUser', this.#logout);
 
         return sessionRouter;
+    }
+
+    static #getSession(_, res) {
+        const username = res.get('Session-User');
+
+        if (username === '') {
+            res.sendStatus(404);
+            return;
+        }
+
+        const responseBody = {
+            username: username
+        };
+
+        res.json(responseBody);
+        res.status(200);
     }
 
     static async #login(req, res) {
