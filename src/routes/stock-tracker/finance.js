@@ -37,7 +37,6 @@ export default class FinanceRoutes {
         }
 
         res.status(200);
-        res.set('Access-Control-Allow-Origin', '*');
         res.json(data);
     }
 

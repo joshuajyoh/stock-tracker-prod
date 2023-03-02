@@ -1,4 +1,5 @@
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import Database from './src/database.js';
 import * as Env from 'dotenv';
 import express from 'express';
@@ -17,6 +18,10 @@ const app = express();
 app.use(cookieParser());
 app.use(express.static('public'));
 
+const corsOptions = {
+    origin: process.env.ST_FRONTEND
+};
+
 app.get('/', (_, res) => {
     res.sendFile(Path.resolve('./pages/home.html'));
 })
@@ -26,7 +31,7 @@ app.get('/stock-tracker', (_, res) => {
 })
 
 // Set up Stock Tracker routes
-app.use('/api/stock-tracker', Token.verify, StockTrackerRoutes.setup());
+app.use('/api/stock-tracker', cors(corsOptions), Token.verify, StockTrackerRoutes.setup());
 
 // Set up database
 Database.setup();
