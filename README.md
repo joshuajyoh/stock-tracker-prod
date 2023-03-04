@@ -12,7 +12,7 @@ https://joshuajyoh.com/
 
 Back-end: NodeJS, ExpressJS, MySQL
 
-Front-end: JavaScript, VusJS, HTML, CSS
+Front-end: JavaScript, VueJS, HTML, CSS
 
 ## Technical Indicators
 
