@@ -10,6 +10,7 @@ export default class SessionRoutes {
 
         sessionRouter.get('/user', this.#getSessionUser);
         sessionRouter.post('/', bodyParser.json(), this.#login);
+        sessionRouter.delete('/', this.#logout);
 
         return sessionRouter;
     }
@@ -82,5 +83,10 @@ export default class SessionRoutes {
         } catch {
             res.sendStatus(500);
         }
+    }
+
+    static async #logout(_, res) {
+        res.clearCookie('session');
+        res.sendStatus(200);
     }
 }
