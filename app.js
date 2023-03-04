@@ -18,19 +18,14 @@ const app = express();
 app.use(express.static('public'));
 app.use(cookieParser());
 
-const corsOptions = {
-    origin: process.env.ST_FRONTEND,
-    credentials: true
-};
-
 // Set up Stock Tracker routes
-app.use('/api/stock-tracker', cors(corsOptions), Token.verify, StockTrackerRoutes.setup());
+app.use('/api/stock-tracker', cors(), Token.verify, StockTrackerRoutes.setup());
 
 // Set up database
 Database.setup();
 
-app.get('/', (req, res) => {
-    res.sendFile(Path.join(__dirname, '/index.html'));
+app.get('/', (_, res) => {
+    res.sendFile(Path.resolve('./index.html'));
 });
 
 // HTTP Setup
