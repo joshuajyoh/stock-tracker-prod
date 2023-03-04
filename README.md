@@ -23,6 +23,17 @@ Front-end: JavaScript, VueJS, HTML, CSS
 
 ## Images
 
-![alt text][st-1]
+Stocks Page
+![Stocks Page][st-1]
 
-[st-1]: https://github.com/joshuajyoh/stock-tracker-prod/github/images/st-1.png
+[st-1]: https://github.com/joshuajyoh/stock-tracker-prod/blob/37736a9514e51b1e99a427643323ca5422609521/github/images/st-1.png
+
+Events Page
+![Events Page][st-2]
+
+[st-2]: https://github.com/joshuajyoh/stock-tracker-prod/blob/37736a9514e51b1e99a427643323ca5422609521/github/images/st-2.png
+
+Adding an Event
+![Add an Event][st-3]
+
+[st-3]: https://github.com/joshuajyoh/stock-tracker-prod/blob/37736a9514e51b1e99a427643323ca5422609521/github/images/st-3.png
