@@ -8,6 +8,12 @@ This repo contains the complete application with minified front-end code. To vie
 
 https://joshuajyoh.com/
 
+## Solution Stack
+
+Back-end: NodeJS, ExpressJS, MySQL
+
+Front-end: JavaScript, VusJS, HTML, CSS
+
 ## Technical Indicators
 
 - Price
