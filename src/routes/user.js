@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import express from 'express';
-import DBQuery from '../../utils/db-query.js';
+import DBQuery from '../utils/db-query.js';
 
 export default class UserRoutes {
     static setup() {
