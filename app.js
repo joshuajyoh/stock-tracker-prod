@@ -17,7 +17,8 @@ const app = express();
 app.use(cookieParser());
 
 const corsOptions = {
-    origin: process.env.ST_FRONTEND
+    origin: process.env.ST_FRONTEND,
+    credentials: true
 };
 
 // Set up Stock Tracker routes
