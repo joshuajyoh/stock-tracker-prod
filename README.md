@@ -2,7 +2,7 @@
 
 A web app for tracking financial stock behaviour using technical indicators.
 
-This repo contains the complete application with minified front-end code. To view the un-minified front-end logic, see https://github.com/joshuajyoh/stock-tracker-fe.
+This repo contains the complete application with minified front-end code. To view the un-minified front-end logic (Vue templating, controllers, etc.), see https://github.com/joshuajyoh/stock-tracker-fe.
 
 ## Live Site
 
