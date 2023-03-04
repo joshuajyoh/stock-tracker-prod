@@ -72,12 +72,13 @@ export default class SessionRoutes {
         // Create JWT session
 
         try {
-            const token = JWT.sign({ data: user.username }, process.env.SECRET, { expiresIn: '7d' });
+            const token = JWT.sign({ data: user.username }, process.env.SECRET, { expiresIn: '1d' });
 
-            res.status(200);
-            res.json({
-                token: token
+            res.cookie('session', token, {
+                httpOnly: true,
+                secure: true
             });
+            res.sendStatus(200);
         } catch {
             res.sendStatus(500);
         }
