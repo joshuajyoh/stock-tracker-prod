@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import JWT from 'jsonwebtoken';
 import express from 'express';
-import DBQuery from '../../utils/db-query.js';
+import DBQuery from '../utils/db-query.js';
 
 export default class SessionRoutes {
     static setup() {
