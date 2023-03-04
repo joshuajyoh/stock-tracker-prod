@@ -8,13 +8,13 @@ export default class SessionRoutes {
     static setup() {
         const sessionRouter = express.Router();
 
-        sessionRouter.get('/username', this.#getSessionUsername);
+        sessionRouter.get('/user', this.#getSessionUser);
         sessionRouter.post('/', bodyParser.json(), this.#login);
 
         return sessionRouter;
     }
 
-    static #getSessionUsername(_, res) {
+    static #getSessionUser(_, res) {
         const username = res.get('Session-User');
 
         if (username === '') {
