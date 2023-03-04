@@ -6,6 +6,7 @@ import express from 'express';
 import * as FileSystem from 'fs';
 import * as HTTP from 'http';
 import * as HTTPS from 'https';
+import * as Path from 'path';
 import StockTrackerRoutes from './src/routes/stock-tracker.js';
 import Token from './src/middleware/token.js';
 
@@ -14,6 +15,7 @@ Env.config();
 const ENV = process.env.ENV;
 
 const app = express();
+app.use(express.static('public'));
 app.use(cookieParser());
 
 const corsOptions = {
@@ -26,6 +28,10 @@ app.use('/api/stock-tracker', cors(corsOptions), Token.verify, StockTrackerRoute
 
 // Set up database
 Database.setup();
+
+app.get('/', (req, res) => {
+    res.sendFile(Path.join(__dirname, '/index.html'));
+});
 
 // HTTP Setup
 
