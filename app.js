@@ -30,11 +30,13 @@ app.get('/', (_, res) => {
 
 // HTTP Setup
 
-const httpServer = HTTP.createServer(app);
+if (ENV === 'dev') {
+    const httpServer = HTTP.createServer(app);
 
-httpServer.listen(80, () => {
-	console.log('HTTP Server running on port 80');
-});
+    httpServer.listen(80, () => {
+        console.log('HTTP Server running on port 80');
+    });
+}
 
 // HTTPS Setup
 
