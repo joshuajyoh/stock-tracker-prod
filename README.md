@@ -12,9 +12,18 @@ https://joshuajyoh.com/
 
 ## Solution Stack
 
-Back-end: NodeJS, ExpressJS, MySQL
+**Back-end**: NodeJS, ExpressJS, MySQL
 
-Front-end: JavaScript, VueJS, HTML, CSS
+**Front-end**: JavaScript, VueJS, HTML, CSS
+
+## Features
+
+**Stock List**: Search for and add financial stocks to a list, displaying name, price, and event status (see Event List).
+
+**Event List**: For a specified stock, create custom 'events' pertaining to the values of technical indicators (e.g. Check for when the 50-day average is above 
+$25). An event's 'status' indicates whether the event condition has been triggered.
+
+**Accounts**: Create accounts to log in with that will save your custom stock list.
 
 ## Technical Indicators
 
