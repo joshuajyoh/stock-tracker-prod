@@ -23,6 +23,12 @@ export default class Database {
             console.log('Connected to DBMS as ID ' + this.#connection.threadId);
         });
 
+        this.#connection.query(`SET session wait_timeout=2630000`, (err) => {
+            if (err) {
+                console.error('Failed to configure connection settings');
+            }
+        });
+
         this.#connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`, (err) => {
             if (err) {
                 console.error('Failed to create database');
